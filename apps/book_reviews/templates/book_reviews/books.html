@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Books Home</title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
+    </head>
+    <body>
+        <h1>Welcome, {{user.alias}}</h1>
+        <p><a href="{% url 'add' %}">Add book and review</a> <a href="{% url 'logout' %}">Logout</a></p>
+        <h2>Recent Book Reviews</h2>
+        {% for r in reviews %}
+            <div class="card">
+                <a class="card-header" href="{% url 'show_book' id=r.book.id %}">{{r.book.title}}</a>
+                <p class="card-text">Rating: {{r.rating}}</p>
+                <p class="card-text"><a href="{% url 'show_user' id=r.reviewer.id %}">{{r.reviewer.alias}}</a> says: {{r.content}}</p>
+                <p class="card-text"><small class="text-muted">Posted on {{r.created_at}}</small></p>
+            </div>
+        {% endfor %}
+        <h2>Other Books with Reviews</h2>
+        {% for b in books %}
+            <a href="{% url 'show_book' id=b.id %}">{{b.title}}</a>
+        {% endfor %}
+    </body>
+</html>

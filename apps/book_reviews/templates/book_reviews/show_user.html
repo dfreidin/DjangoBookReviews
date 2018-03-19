@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>User Reviews</title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
+    </head>
+    <body>
+        <p><a href="{% url 'add' %}">Add book and review</a> <a href="{% url 'books' %}">Home</a> <a href="{% url 'logout' %}">Logout</a></p>
+        <h2>User Alias: {{user.alias}}</h2>
+        <h3>Name: {{user.name}}</h3>
+        <h3>Email: {{user.email}}</h3>
+        <h3>Total Reviews: {{num_revs}}</h3>
+        <div class="card">
+            <p class="card-header">Posted Reviews on the following books</p>
+            {% for r in user.reviews.all %}
+                <p class="card-text"><a href="{% url 'show_book' id=r.book.id %}">{{r.book.title}}</a></p>
+            {% endfor %}
+        </div>
+    </body>
+</html>
